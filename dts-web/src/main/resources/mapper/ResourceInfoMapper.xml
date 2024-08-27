@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.dts.mapper.ResourceInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.github.dts.domain.ResourceInfo">
+        <id column="id" property="id" />
+        <result column="resource_name" property="resourceName" />
+        <result column="resource_type" property="resourceType" />
+        <result column="connection" property="connection" />
+        <result column="host" property="host" />
+        <result column="port" property="port" />
+        <result column="catalog_name" property="catalogName" />
+        <result column="database_name" property="databaseName" />
+        <result column="table_name" property="tableName" />
+        <result column="partition_name" property="partitionName" />
+        <result column="storage_path" property="storagePath" />
+        <result column="cluster_name" property="clusterName" />
+        <result column="user_name" property="userName" />
+        <result column="pass_word" property="passWord" />
+        <result column="extra_conf" property="extraConf" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, resource_name, resource_type, connection, host, port, catalog_name, database_name, table_name, partition_name, storage_path, cluster_name, user_name, pass_word, extra_conf
+    </sql>
+
+</mapper>
