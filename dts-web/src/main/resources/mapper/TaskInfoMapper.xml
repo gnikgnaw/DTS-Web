@@ -7,7 +7,10 @@
         <id column="id" property="id" />
         <result column="task_name" property="taskName" />
         <result column="task_type" property="taskType" />
-        <result column="engine_task_id" property="engineTaskId" />
+        <result column="source_type" property="sourceType" />
+        <result column="source_ids" property="sourceIds" />
+        <result column="sink_type" property="sinkType" />
+        <result column="sink_ids" property="sinkIds" />
         <result column="task_info_extra_conf" property="taskInfoExtraConf" />
         <result column="ctime" property="ctime" />
         <result column="mtime" property="mtime" />
@@ -15,7 +18,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, task_name, task_type, engine_task_id, task_info_extra_conf, ctime, mtime
+        id, task_name, task_type, source_type, source_ids, sink_type, sink_ids, task_info_extra_conf, ctime, mtime
     </sql>
 
 </mapper>

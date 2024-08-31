@@ -8,7 +8,7 @@ import org.mapstruct.factory.Mappers;
  * @description 描述一下
  * @since 2024/8/28 11:12
  */
-@Mapper
+//@Mapper
 public interface GenericMapper<S, T> {
     GenericMapper INSTANCE = Mappers.getMapper(GenericMapper.class);
 

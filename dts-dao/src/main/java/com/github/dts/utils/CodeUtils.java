@@ -53,7 +53,7 @@ public class CodeUtils {
     /**
      * 数据库密码
      */
-    private static final String PASSWORD = "wanghaofeng";
+    private static final String PASSWORD = "";
 
     public static void main(String[] args) {
         codeGenerator();
@@ -76,7 +76,7 @@ public class CodeUtils {
                         .pathInfo(getPathInfo())
                 )
                 .strategyConfig(builder -> builder
-                        .addInclude("resource_info") // 设置需要生成的表名
+                        .addInclude("task_info") // 设置需要生成的表名
                         .entityBuilder()
                         .enableFileOverride()
                         .enableRemoveIsPrefix()
@@ -96,7 +96,6 @@ public class CodeUtils {
                         .formatServiceImplFileName("%sServiceImpl")
                         // mapper
                         .mapperBuilder()
-                        .enableFileOverride()
                         .enableBaseResultMap()
                         .enableBaseColumnList()
                         .superClass(BaseMapper.class)

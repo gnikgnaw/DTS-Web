@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serial;
 import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,15 +14,14 @@ import lombok.Setter;
  * </p>
  *
  * @author dts
- * @since 2024-08-27
+ * @since 2024-08-31
  */
 @Getter
 @Setter
 @TableName("resource_info")
 public class ResourceInfo implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1100503537277185750L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 主键id

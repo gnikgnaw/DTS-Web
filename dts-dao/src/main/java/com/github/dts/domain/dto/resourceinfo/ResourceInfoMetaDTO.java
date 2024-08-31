@@ -1,4 +1,4 @@
-package com.github.dts.domain.dto.ResourceInfo;
+package com.github.dts.domain.dto.resourceinfo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,11 +12,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResourceInfoValidateDTO {
+public class ResourceInfoMetaDTO {
     private String connection;
     private String host;
     private Integer port;
     private Integer resourceType;
     private String userName;
     private String passWord;
+    private String databaseName;
+    private String tableName;
 }

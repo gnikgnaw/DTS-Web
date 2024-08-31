@@ -3,8 +3,8 @@ package com.github.dts.service.dts;
 import com.github.dts.core.http.ApiResponse;
 import com.github.dts.domain.ResourceInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.github.dts.domain.dto.ResourceInfo.ResourceInfoMetaDTO;
-import com.github.dts.domain.dto.ResourceInfo.ResourceInfoValidateDTO;
+import com.github.dts.domain.dto.resourceinfo.ResourceInfoMetaDTO;
+import com.github.dts.domain.dto.resourceinfo.ResourceInfoValidateDTO;
 import com.github.dts.domain.vo.resourceInfo.ResourceInfoTableVO;
 
 import java.util.List;

@@ -1,17 +1,15 @@
 package com.github.dts.controller;
 
 import com.github.dts.core.http.ApiResponse;
-import com.github.dts.domain.dto.ResourceInfo.ResourceInfoMetaDTO;
-import com.github.dts.domain.dto.ResourceInfo.ResourceInfoValidateDTO;
+import com.github.dts.domain.dto.resourceinfo.ResourceInfoMetaDTO;
+import com.github.dts.domain.dto.resourceinfo.ResourceInfoValidateDTO;
 import com.github.dts.domain.vo.resourceInfo.ResourceInfoTableVO;
 import com.github.dts.service.dts.ResourceInfoService;
-import com.github.dts.utils.DTSBeanUtils;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>

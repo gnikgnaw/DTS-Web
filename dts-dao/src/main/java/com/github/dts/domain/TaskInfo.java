@@ -4,10 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,15 +15,14 @@ import lombok.Setter;
  * </p>
  *
  * @author dts
- * @since 2024-08-27
+ * @since 2024-08-31
  */
 @Getter
 @Setter
 @TableName("task_info")
 public class TaskInfo implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = -5944891006959259306L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 主键id
@@ -46,10 +43,28 @@ public class TaskInfo implements Serializable {
     private Integer taskType;
 
     /**
-     * 引擎任务表主键
+     * 数据来源类型
      */
-    @TableField("engine_task_id")
-    private String engineTaskId;
+    @TableField("source_type")
+    private Integer sourceType;
+
+    /**
+     * 数据来源资源id
+     */
+    @TableField("source_ids")
+    private String sourceIds;
+
+    /**
+     * 数据去向类型
+     */
+    @TableField("sink_type")
+    private Integer sinkType;
+
+    /**
+     * 数据去向资源id
+     */
+    @TableField("sink_ids")
+    private String sinkIds;
 
     /**
      * 任务表配置信息
@@ -61,11 +76,11 @@ public class TaskInfo implements Serializable {
      * 创建时间
      */
     @TableField("ctime")
-    private LocalDate ctime;
+    private LocalDateTime ctime;
 
     /**
      * 修改时间
      */
     @TableField("mtime")
-    private LocalDate mtime;
+    private LocalDateTime mtime;
 }
