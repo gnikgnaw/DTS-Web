@@ -15,7 +15,7 @@ import lombok.Setter;
  * </p>
  *
  * @author dts
- * @since 2024-08-31
+ * @since 2024-09-01
  */
 @Getter
 @Setter
@@ -37,10 +37,22 @@ public class TaskInfo implements Serializable {
     private String taskName;
 
     /**
+     * 任务状态
+     */
+    @TableField("task_info_status")
+    private Integer taskInfoStatus;
+
+    /**
      * 任务类型
      */
     @TableField("task_type")
     private Integer taskType;
+
+    /**
+     * 执行引擎类型
+     */
+    @TableField("engine_type")
+    private Integer engineType;
 
     /**
      * 数据来源类型

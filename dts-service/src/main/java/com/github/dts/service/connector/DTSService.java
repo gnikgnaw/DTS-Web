@@ -22,5 +22,9 @@ public interface DTSService {
 
     DTSConfig initSourceConfig(Long taskId);
 
+    DTSConfig initSourceConfigForFlinkCDC(List<ResourceInfo> resourceInfos);
+
     DTSConfig initSinkConfig(Long taskId);
+
+    DTSConfig initSinkConfigForFlinkCDC(List<ResourceInfo> resourceInfos);
 }

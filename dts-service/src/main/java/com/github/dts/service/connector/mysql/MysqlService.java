@@ -4,16 +4,16 @@ import com.github.dts.core.http.ApiResponse;
 import com.github.dts.domain.ResourceInfo;
 import com.github.dts.domain.TaskInfo;
 import com.github.dts.domain.connector.DTSConfig;
-import com.github.dts.domain.connector.MysqlConfig;
+import com.github.dts.domain.connector.mysql.FlinkCDCMysqlConfig;
 import com.github.dts.domain.dto.resourceinfo.ResourceInfoMetaDTO;
 import com.github.dts.domain.dto.resourceinfo.ResourceInfoValidateDTO;
+import com.github.dts.enums.engine.EngineTypeEnum;
 import com.github.dts.enums.http.ResponseCodeEnum;
 import com.github.dts.enums.http.ResponseStatusEnum;
+import com.github.dts.enums.resource.ResourceResponseCodeEnum;
 import com.github.dts.enums.resource.mysql.MysqlBinlogStatusEnum;
 import com.github.dts.enums.resource.mysql.MysqlBinlogTypeEnum;
-import com.github.dts.exceptions.QueryResourceInfoMetaException;
-import com.github.dts.exceptions.ResourcePersistenceException;
-import com.github.dts.exceptions.ResourceUnavailableException;
+import com.github.dts.exceptions.ResourceException;
 import com.github.dts.mapper.ResourceInfoMapper;
 import com.github.dts.mapper.TaskInfoMapper;
 import com.github.dts.service.connector.DTSService;
@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * @author wang
@@ -67,7 +66,7 @@ public class MysqlService implements DTSService {
                 return ApiResponse.fail(ResponseStatusEnum.SUCCESS.getCode(), false, "数据库Binlog类型不满足ROW类型", ResponseCodeEnum.FAILURE.getCode());
             }
         } catch (SQLException e) {
-            throw new ResourceUnavailableException("数据源连接异常", e);
+            throw new ResourceException("数据源连接异常", e, ResourceResponseCodeEnum.CONNECTIVITY_FAILURE.getCode());
         }
         return ApiResponse.success(true);
     }
@@ -91,7 +90,7 @@ public class MysqlService implements DTSService {
                 }
             }
         } catch (SQLException e) {
-            throw new QueryResourceInfoMetaException("获取表信息失败", e);
+            throw new ResourceException("获取表信息失败", e,ResourceResponseCodeEnum.LIST_TABLE_ERROR.getCode());
         }
         return resourceInfoList;
     }
@@ -102,7 +101,7 @@ public class MysqlService implements DTSService {
         try {
             resourceInfoMapper.insert(resourceInfo);
         } catch (Exception e) {
-            throw new ResourcePersistenceException("MySQL资源保存异常", e);
+            throw new ResourceException("MySQL资源保存异常", e,ResourceResponseCodeEnum.SAVE_RESOURCE_INFO_ERROR.getCode());
         }
         return resourceInfo.getId();
     }
@@ -113,18 +112,30 @@ public class MysqlService implements DTSService {
         String sourceIds = taskInfo.getSourceIds();
         List<Long> sourceIdList = Arrays.stream(sourceIds.split(",")).map(Long::parseLong).toList();
         List<ResourceInfo> resourceInfos = resourceInfoMapper.selectBatchIds(sourceIdList);
-        MysqlConfig mysqlConfig = new MysqlConfig();
-        mysqlConfig.setHost(resourceInfos.get(0).getHost());
-        mysqlConfig.setPort(resourceInfos.get(0).getPort());
-        mysqlConfig.setUserName(resourceInfos.get(0).getUserName());
-        mysqlConfig.setPassWord(resourceInfos.get(0).getPassWord());
-        mysqlConfig.setDatabaseName(resourceInfos.stream().map(ResourceInfo::getDatabaseName).collect(Collectors.joining(",")));
-        mysqlConfig.setTableName(resourceInfos.stream().map(resourceInfo -> resourceInfo.getDatabaseName() + "." + resourceInfo.getTableName()).collect(Collectors.joining(",")));
-        return mysqlConfig;
+
+        switch (Objects.requireNonNull(EngineTypeEnum.getEngineNameByType(taskInfo.getEngineType()))) {
+            case FLINK_CDC:
+                return initSourceConfigForFlinkCDC(resourceInfos);
+            case SEATUNNEL:
+                logger.error("SEATUNNEL暂不支持MySQL数据源");
+                throw new RuntimeException();
+            default:
+                throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public DTSConfig initSourceConfigForFlinkCDC(List<ResourceInfo> resourceInfos){
+        return new FlinkCDCMysqlConfig();
     }
 
     @Override
     public DTSConfig initSinkConfig(Long taskId) {
+        return null;
+    }
+
+    @Override
+    public DTSConfig initSinkConfigForFlinkCDC(List<ResourceInfo> resourceInfos) {
         return null;
     }
 

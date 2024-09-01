@@ -1,5 +1,6 @@
-package com.github.dts.domain.connector;
+package com.github.dts.domain.connector.mysql;
 
+import com.github.dts.domain.connector.DTSConfig;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,7 +11,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class MysqlConfig extends DTSConfig{
+public class FlinkCDCMysqlConfig extends DTSConfig {
     private String connection;
     private String host;
     private Integer port;
@@ -18,10 +19,4 @@ public class MysqlConfig extends DTSConfig{
     private String passWord;
     private String databaseName;
     private String tableName;
-
-    //CDC配置项
-    private String name;
-
-
-    //其他配置项
 }

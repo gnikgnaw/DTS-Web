@@ -11,7 +11,9 @@ import lombok.Getter;
 public enum ResourceResponseCodeEnum {
 
     CONNECTIVITY_SUCCESS(1001, "联通性测试成功"),
-    CONNECTIVITY_FAILURE(1002, "联通性测试失败");
+    CONNECTIVITY_FAILURE(1002, "联通性测试失败"),
+    LIST_TABLE_ERROR(1003, "获取表信息失败"),
+    SAVE_RESOURCE_INFO_ERROR(1004, "获取表信息失败");
 
     private final Integer code;
     private final String message;
